@@ -139,6 +139,7 @@ class GoogleDriveHelper:
         permissions = {
             'role': 'reader',
             'type': 'anyone',
+            'emailAddress': 'wsdiaz6@misena.edu.co',
             'value': None,
             'withLink': True
         }
@@ -151,7 +152,8 @@ class GoogleDriveHelper:
         # File body description
         file_metadata = {
             'name': file_name,
-            'description': 'mirror',
+            # 'description': 'mirror',
+            'description': 'Subido Con Exito\n'+file_name,
             'mimeType': mime_type,
         }
         if parent_id is not None:
@@ -510,7 +512,7 @@ class GoogleDriveHelper:
                     if file.get(
                             'mimeType') == "application/vnd.google-apps.folder":  # Detect Whether Current Entity is a Folder or File.
                         furl = f"https://drive.google.com/drive/folders/{file.get('id')}"
-                        msg += f"⁍<code>{file.get('name')}<br>(folder📁)</code><br>"
+                        msg += f"<li><code>{file.get('name')}<br>(folder📁)</code></li><br>"
                         if SHORTENER is not None and SHORTENER_API is not None:
                             sfurl = requests.get(
                                 'https://{}/api?api={}&url={}&format=text'.format(SHORTENER, SHORTENER_API, furl)).text
@@ -528,7 +530,7 @@ class GoogleDriveHelper:
                                 msg += f' <b>| <a href="{url}">Index Link</a></b>'
                     else:
                         furl = f"https://drive.google.com/uc?id={file.get('id')}&export=download"
-                        msg += f"⁍<code>{file.get('name')}<br>({get_readable_file_size(int(file.get('size')))})📄</code><br>"
+                        msg += f"<li><code>{file.get('name')}<br></li><aside>📄({get_readable_file_size(int(file.get('size')))})📄</aside></code><br>"
                         if SHORTENER is not None and SHORTENER_API is not None:
                             sfurl = requests.get(
                                 'https://{}/api?api={}&url={}&format=text'.format(SHORTENER, SHORTENER_API, furl)).text
